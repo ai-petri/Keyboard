@@ -1,0 +1,70 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Keyboard</title>
+    <style>
+        button{
+            width: 50px;
+            height: 50px;
+            margin: 5px;
+        }
+        .keyboard{
+            display: grid;
+            grid-template-rows: auto auto auto;
+            width: 50%;
+        }
+        .keyboard>button:nth-child(n+13){
+            grid-row: 2;
+            position: relative;
+            left: 20px;
+        }
+        .keyboard>button:nth-child(n+25){
+            grid-row: 3;
+            position: relative;
+            left: 50px;
+        }
+        .active{
+            background: green;
+        }
+    </style>
+</head>
+<body>
+    <script>
+        var alphabet = `qwertyuiop[]asdfghjkl;'\\zxcvbnm,./`;
+
+        var keyboard = document.createElement("div");
+        keyboard.className = "keyboard";
+
+        for(let letter of alphabet)
+        {
+            let button = document.createElement("button");
+            button.innerText = letter.toUpperCase();
+            keyboard.append(button);
+        }
+
+        document.body.append(keyboard);
+
+        addEventListener("keydown", e=>{
+            for(let button of [...keyboard.children])
+            {
+                if(button.innerText.toLowerCase() === e.key)
+                {
+                    button.classList.add("active");
+                }
+            }
+        })
+        addEventListener("keyup", e=>{
+            for(let button of [...keyboard.children])
+            {
+                if(button.innerText.toLowerCase() === e.key)
+                {
+                    button.classList.remove("active");
+                }
+            }
+        })
+    </script>
+</body>
+</html>
